@@ -1,0 +1,358 @@
+<html><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=koi8-r">
+<title>Проект OpenNet: MAN shm_open (3) Библиотечные вызовы (FreeBSD и Linux)</title></head>
+<meta name="KeyWords" content="man, manual, MAN, системное руководство, linux, FreeBSD, OpenBSD, Solaris, ядро, программы, системный вызов, shm_open">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body bgcolor="#E3E4D0" text="#000000" link="#0000FF" vlink="#000080" alink="#FF00FF">
+
+<h3></h3><font size="+2">shm_open (3)</font><hr><li> <a href="/man.shtml?topic=shm_open&category=3&russian=4"><u>shm_open</u></a> (3) <font color=#555555> ( Solaris man: Библиотечные вызовы )</font></li><li> <a href="/man.shtml?topic=shm_open&category=3&russian=1"><u>shm_open</u></a> (3) <font color=#555555> ( FreeBSD man: Библиотечные вызовы )</font></li><li>&gt;&gt; <a href="/man.shtml?topic=shm_open&category=3&russian=0"><u>shm_open</u></a> (3) <font color=#555555> ( Русские man: Библиотечные вызовы )</font></li><li> <a href="/man.shtml?topic=shm_open&category=3&russian=2"><u>shm_open</u></a> (3) <font color=#555555> ( Linux man: Библиотечные вызовы )</font></li><li> <a href="/man.shtml?topic=shm_open&category=3&russian=5"><u>shm_open</u></a> (3) <font color=#555555> ( POSIX man: Библиотечные вызовы )</font></li>
+<A NAME="lbAB">&nbsp;</A>
+<H2>НАЗВАНИЕ</H2>
+
+shm_open, shm_unlink - создает/открывает или снимает объекты разделяемой памяти POSIX
+<A NAME="lbAC">&nbsp;</A>
+<H2>СИНТАКСИС</H2>
+
+<B>#include &lt;<A HREF="file:/usr/include/sys/types.h">sys/types.h</A>&gt;</B>
+
+<BR>
+
+<B>#include &lt;<A HREF="file:/usr/include/sys/mman.h">sys/mman.h</A>&gt;</B>
+
+<P>
+<B>int shm_open(const char *</B><I>name</I><B>, int </B><I>oflag</I><B>, mode_t </B><I>mode</I><B>);</B>
+
+<P>
+<B>int shm_unlink(const char *</B><I>name</I><B>);</B>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>ОПИСАНИЕ</H2>
+
+<B>shm_open</B>
+
+создает и открывает новый (или открывает уже существующий) объект
+разделяемой памяти POSIX. Объект разделяемой памяти POSIX - это
+обработчик, используемый несвязанными процессами для исполнения
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=mmap&category=2">mmap</A></B>(2)
+
+на одну область разделяемой памяти.
+Функция
+<B>shm_unlink</B>
+
+выполняет обратную операцию, удаляя объект,
+предварительно созданный с помощью
+<B>shm_open</B>.
+
+<P>
+
+Операция
+<B>shm_open</B>
+
+аналогична
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=open&category=2">open</A></B>(2).
+
+<I>name</I>
+
+определяет собственно создаваемый объект разделяемой памяти для создания
+или открытия. Для использования в портируемых программах
+<I>name</I>
+
+должно иметь в начале косую черту (/) и больше не содержать их внутри имени.
+
+
+
+<P>
+
+<I>oflag</I>
+
+является маской битов, созданной через логическое сложение OR
+одного из флагов
+<B>O_RDONLY </B>
+
+или
+<B>O_RWDR</B>
+
+и любых других флагов, перечисленных далее:
+<DL COMPACT>
+<DT><B>O_RDONLY</B>
+
+<DD>
+Открыть объект для чтения.
+Объект разделяемой памяти, открытый таким образом,
+может быть обработан
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=mmap&category=2">mmap</A></B>(2)
+
+только для чтения (<B>PROT_READ</B>).
+<DT><B>O_RDWR</B>
+
+<DD>
+Открывает объект для чтения и записи.
+<DT><B>O_CREAT</B>
+
+<DD>
+Создает объект разделяемой памяти, если он еще не существует.
+Владелец и группа объекта устанавливаются как для
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=open&category=2">open</A></B>(2),
+
+а биты прав объекта устанавливаются в соответствии с 9 битами
+<I>mode</I>
+
+младшего порядка, за исключением того, что эти биты, установленные
+во время обработки маски создания режимов файла (см.
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=umask&category=2">umask</A></B>(2))
+
+очищаются у новых объектов.
+(Набор макро-констант, используемых для определения режима
+<I>mode</I>
+
+перечислен в
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=open&category=2">open</A></B>(2).)
+
+<P>
+Новый объект разделяемой памяти изначально имеет нулевую длину,
+размер объекта можно установить, используя
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=ftruncate&category=2">ftruncate</A></B>(2).
+
+(Новые, только что распределенные байты объекта разделяемой памяти
+автоматически инициализируются в 0.)
+<DT><B>O_EXCL</B>
+
+<DD>
+Если также было указано
+<B>O_CREAT</B>
+
+и объект разделяемой памяти с заданным
+<I>name </I>
+
+уже существует, то возвращается ошибка.
+Проверка наличия объекта и его создание (если он не существует)
+исполняется автоматически.
+<DT><B>O_TRUNC</B>
+
+<DD>
+Если объект разделяемой памяти уже существует, то обрезать его до 0 байтов.
+</DL>
+<P>
+
+При успешном выполнении
+<B>shm_open</B>
+
+возвращает новый описатель файла, ссылающийся на объект разделяемой памяти.
+Этот описатель файла гарантированно будет описателем файла с самым
+маленьким номером (не среди предварительно открытых) внутри процесса.
+Флаг
+<B>FD_CLOEXEC</B>
+
+(см.
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=fcntl&category=2">fcntl</A></B>(2))
+
+устанавливается для описателя файла.
+<P>
+Описатель файла обычно используется в последовательных вызовах
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=ftruncate&category=2">ftruncate</A></B>(2)
+
+(для вновь созданных объектов) и
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=mmap&category=2">mmap</A></B>(2).
+
+После вызова к
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=mmap&category=2">mmap</A></B>(2)
+
+описатель файла может быть закрыт без влияния на распределение памяти.
+<P>
+Операции
+<B>shm_unlink</B>
+
+аналогичны
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=unlink&category=2">unlink</A></B>(2):
+
+удаляется имя объекта разделяемой памяти и, как только все процессы
+завершили работу с объектом и отменили его распределение, очищают
+пространство и уничтожают связанную с ним область памяти.
+После успешного выполнения
+<B>shm_unlink</B>,
+
+попытка исполнить
+<B>shm_open </B>
+
+для объекта с тем же именем
+<I>name</I>
+
+выдаст ошибку (если только не было указано
+<B>O_CREAT</B>,
+
+в этом случае создается новый, уже другой объект).
+<A NAME="lbAE">&nbsp;</A>
+<H2>ВОЗВРАЩАЕМЫЕ ЗНАЧЕНИЯ</H2>
+
+При нормальном завершении работы
+<B>shm_open</B>
+
+возвращает неотрицательный описатель файла. При ошибках
+<B>shm_open</B>
+
+возвращает -1.
+<B>shm_unlink</B>
+
+возвращает 0 при нормальном завершении работы и -1 при ошибках.
+<A NAME="lbAF">&nbsp;</A>
+<H2>НАЙДЕННЫЕ ОШИБКИ</H2>
+
+При ошибках
+<I>errno</I>
+
+определяется для показа причины ошибки. Значения
+<I>errno</I>
+
+могут быть такими:
+<DL COMPACT>
+<DT><B>EACCES</B>
+
+<DD>
+Отказ в доступе для
+<B>shm_open</B>
+
+<I>name</I>
+
+в указанном режиме
+<I>mode</I>,
+
+или было указано
+<B>O_TRUNC</B>
+
+а вызывающий не имеет права на запись для объекта.
+<DT><B>EACCES</B>
+
+<DD>
+Отказ в доступе при исполнении
+<B>shm_unlink</B>
+
+для объекта разделяемой памяти.
+<DT><B>EEXIST</B>
+
+<DD>
+И
+<B>O_CREAT</B>
+
+и
+<B>O_EXCL </B>
+
+определены для
+<B>shm_open</B>
+
+а объект разделяемой памяти, определенный
+<I>name</I>,
+
+уже существует.
+<DT><B>EINVAL</B>
+
+<DD>
+Аргумент
+<I>name</I>
+
+для
+<B>shm_open</B>
+
+некорректен.
+<DT><B>EMFILE</B>
+
+<DD>
+Процесс уже достиг максимального количества открытых файлов.
+<DT><B>ENAMETOOLONG</B>
+
+<DD>
+Длина
+<I>name</I>
+
+превышает
+<B>PATH_MAX</B>.
+
+<DT><B>ENFILE</B>
+
+<DD>
+Достигнуто ограничение общего числа открытых в системе файлов.
+<DT><B>ENOENT</B>
+
+<DD>
+Была сделана попытка исполнить
+<B>shm_open</B>
+
+для несуществующего
+<I>name </I>
+
+и при этом
+<B>O_CREAT</B>
+
+не было определено.
+<DT><B>ENOENT</B>
+
+<DD>
+Была сделана попытка исполнить
+<B>shm_unlink</B>
+
+для несуществующего
+<I>name</I>.
+
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>ЗАМЕЧАНИЯ</H2>
+
+Эти функции присутствуют в glibc 2.2 и более новых. Программы, использующие
+эти функции, должны указывать флаг
+<B>-lrt</B>
+
+для
+<B>cc</B>
+
+для привязки к требуемым библиотекам режима реального времени.
+<P>
+
+POSIX оставляет неопределенным поведение при комбинации
+<B>O_RDONLY</B>
+
+и
+<B>O_TRUNC</B>.
+
+В Linux при ней нормально обрежется существующих объект разделяемой памяти,
+но так может не случиться в других клонах.
+<P>
+
+Реализация объекта разделяемой памяти POSIX в Linux 2.4
+использует выделенную файловую систему, обычно подключенную в
+<B>/dev/shm</B>.
+
+<A NAME="lbAH">&nbsp;</A>
+<H2>СООТВЕТСТВИЕ СТАНДАРТАМ</H2>
+
+POSIX 1003.1 (2001).
+<A NAME="lbAI">&nbsp;</A>
+<H2>СМ. ТАКЖЕ</H2>
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=mmap&category=2">mmap</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=open&category=2">open</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=close&category=2">close</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=ftruncate&category=2">ftruncate</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=fstat&category=2">fstat</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=fchown&category=2">fchown</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=fchmod&category=2">fchmod</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=umask&category=2">umask</A></B>(2),
+
+<B><A HREF="https://www.opennet.ru/cgi-bin/opennet/man.cgi?topic=fcntl&category=2">fcntl</A></B>(2)
+
+<P>
+
+<HR>
+<br>
+<!--/htdig_noindex-->
+<!-- end of footer -->
+
+</body>
+</html>
+
