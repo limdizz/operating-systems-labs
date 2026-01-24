@@ -1,0 +1,55 @@
+<html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>SEM _INIT function.</title></head><body>    
+
+<a name="top">
+
+</a><p>
+<table width="100%">
+<tbody><tr><td width="20%">&nbsp;</td>
+<td>
+<table border="1"> 
+  <tbody><tr><td align="center"><big><b><samp>sem_init (3)</samp></b></big><br>
+    &nbsp;&nbsp; инициализация общего семафора&nbsp;&nbsp;
+  </td></tr>
+</tbody></table>
+</td></tr></tbody></table>
+
+
+</p><p><a name="top"><b>Синтаксис</b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>
+<pre>    # include &lt;pthread.h&gt;
+
+    int sem_init(sem_t *sem, int pshared, int value);
+</pre>
+</td></tr></tbody></table>
+
+</p><p><a name="top"><b>Описание</b>
+
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>
+<p>Функция <samp>sem_init</samp> инициализирует общий семафор, на идентификатор которого указывает аргумент <samp>sem</samp>. Аргумент <samp>value</samp> задает значение семафора. Аргумент <samp>pshared</samp> в Linux может принимать значение только 0.
+
+</p></td></tr></tbody></table>
+
+</p><p><a name="top"><b>Возвращаемое значение </b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>При успешном завершении <samp>sem_init</samp> возвращает  0.
+В случае ошибки возвращается ненулевое значение.
+</td></tr></tbody></table>
+
+</p><p><a name="top"><b>См.также </b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td><samp>
+<a href="http://www.life-prog.ru/man/_sem_getvalue.html">sem_getvalue</a>,
+<a href="http://www.life-prog.ru/man/_sem_post.html">sem_post</a>,
+<a href="http://www.life-prog.ru/man/_sem_wait.html">sem_wait</a>.
+</samp></td></tr></tbody></table>
+
+</p><p></p><hr>
+<a href="http://www.life-prog.ru/man/mind.html#sem_init">Список системных вызовов</a>
+</body></html>

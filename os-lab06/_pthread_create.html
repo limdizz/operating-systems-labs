@@ -1,0 +1,60 @@
+<html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>PHTREAD_CREATE function.</title></head><body>    
+
+<a name="top">
+
+</a><p>
+<table width="100%">
+<tbody><tr><td width="20%">&nbsp;</td>
+<td>
+<table border="1"> 
+  <tbody><tr><td align="center"><big><b><samp>phtread_create (3)</samp></b></big><br>
+    &nbsp;&nbsp; создание нити&nbsp;&nbsp;
+  </td></tr>
+</tbody></table>
+</td></tr></tbody></table>
+
+
+</p><p><a name="top"><b>Синтаксис</b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>
+<pre>    # include &lt;pthread.h&gt;
+
+    int pthread_create(pthread_t *threadid, pthread_attr_t *attr, 
+        void *function, void *arg);
+</pre>
+</td></tr></tbody></table>
+
+</p><p><a name="top"><b>Описание</b>
+
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>
+Функция <samp>pthread_create</samp> создает новую нить и записывает ее идентификатор по адресу, содержащемуся в аргументе <samp>threadid</samp>. 
+<p>Аргумент <samp>attr</samp> указывает на объект атрибутов нити. При использовании стандартных атрибутов его значение может задаваться <samp>NULL</samp>.
+</p><p>Аргумент <samp>function</samp> является адресом функции, выполняемой в нити. Прототип этой функции:
+</p><pre>    void *<i>имя_функции</i>(void *);
+</pre>
+<p>Аргумент <samp>arg</samp> передается функции, выполняемой в нити.
+</p></td></tr></tbody></table>
+
+</p><p><a name="top"><b>Возвращаемое значение </b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>При успешном завершении <samp>pthread_create</samp> возвращает  0.
+В случае ошибки возвращается ненулевой код.
+</td></tr></tbody></table>
+
+</p><p><a name="top"><b>См.также </b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td><samp>
+<a href="http://www.life-prog.ru/man/_pthread_cancel.html">pthread_cancel</a>,
+<a href="http://www.life-prog.ru/man/_pthread_exit.html">pthread_exit</a>,
+<a href="http://www.life-prog.ru/man/_pthread_join.html">pthread_join</a>.
+</samp></td></tr></tbody></table>
+
+</p><p></p><hr>
+<a href="http://www.life-prog.ru/man/mind.html#pthread_create">Список системных вызовов</a>
+</body></html>

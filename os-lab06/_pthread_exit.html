@@ -1,0 +1,57 @@
+<html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>PHTREAD_EXIT function.</title></head><body>    
+
+<a name="top">
+
+</a><p>
+<table width="100%">
+<tbody><tr><td width="20%">&nbsp;</td>
+<td>
+<table border="1"> 
+  <tbody><tr><td align="center"><big><b><samp>phtread_exit (3)</samp></b></big><br>
+    &nbsp;&nbsp; завершение нити&nbsp;&nbsp;
+  </td></tr>
+</tbody></table>
+</td></tr></tbody></table>
+
+
+</p><p><a name="top"><b>Синтаксис</b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>
+<pre>    # include &lt;pthread.h&gt;
+
+    void pthread_exit(void *value);
+</pre>
+</td></tr></tbody></table>
+
+</p><p><a name="top"><b>Описание</b>
+
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>
+<p>Функция <samp>pthread_exit</samp> завершает выполнение той нити, из которой она была вызвана. Аргумент <samp>value</samp> является указателем на данные, возвращаемые нитью, этот указатель может быть получен родительской нитью при помощи функции <a href="http://www.life-prog.ru/man/_pthread_join.html"><samp>pthread_join</samp></a>.
+</p><p>Действие функции <samp>pthread_exit</samp> эквивалентно оператору:
+</p><pre>    return value;
+</pre>
+<p>Важно, чтобы те данные, на которые указывает аргумент функции сохранялись и после завершения функции и освобождения ее стека.
+</p></td></tr></tbody></table>
+
+</p><p><a name="top"><b>Возвращаемое значение </b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td>Возврат из <samp>pthread_exit</samp> не происходит.
+</td></tr></tbody></table>
+
+</p><p><a name="top"><b>См.также </b>
+</a><table width="100%">
+<tbody><tr><td width="10%">&nbsp;</td>
+<td><samp>
+<a href="http://www.life-prog.ru/man/_pthread_create.html">pthread_create</a>,
+<a href="http://www.life-prog.ru/man/_pthread_cancel.html">pthread_cancel</a>,
+<a href="http://www.life-prog.ru/man/_pthread_join.html">pthread_join</a>.
+</samp></td></tr></tbody></table>
+
+</p><p></p><hr>
+<a href="http://www.life-prog.ru/man/mind.html#pthread_exit">Список системных вызовов</a>
+</body></html>
